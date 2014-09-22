@@ -14,19 +14,21 @@ The status is **work in progress**.
 
 Your help will be *much welcomed*, we are especially interested in **code reviews**, **library implementations in different languages**, **writing the documentation** and **promotion**.
 
-Feel free to join and discuss at Escher's [general mailing list](https://groups.google.com/forum/#!forum/escherauth).
+Feel free to join and discuss at Escher's `general mailing list <https://groups.google.com/forum/#!forum/escherauth>`_.
 
 **Implementations**:
- * **PHP** - source code: [EscherPHP](https://github.com/emartech/escher-php) - composer package: [emartech/escher](https://packagist.org/packages/emartech/escher)
- * **Ruby** - source code: [EscherRuby](https://github.com/emartech/escher-ruby) - gem: [escher](https://rubygems.org/gems/escher)
- * **NodeJS** - source code: [EscherJS](https://github.com/emartech/escher-js) - npm package: [escher-auth](https://www.npmjs.org/package/escher-auth)
+ * **PHP** - source code: EscherPHP_ - composer package: `emartech/escher <https://packagist.org/packages/emartech/escher>`_
+ * **Ruby** - source code: EscherRuby_ - gem: `escher <https://rubygems.org/gems/escher>`_
+ * **NodeJS** - source code: EscherJS_ - npm package: `escher-auth <https://www.npmjs.org/package/escher-auth>`_
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
-
+.. _EscherPHP: https://github.com/emartech/escher-php
+.. _EscherRuby: https://github.com/emartech/escher-ruby
+.. _EscherJS: https://github.com/emartech/escher-js
 
 Indices and tables
 ==================
