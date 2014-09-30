@@ -25,6 +25,7 @@ Contents:
 
 .. toctree::
    :maxdepth: 2
+   using
 
 .. _EscherPHP: https://github.com/emartech/escher-php
 .. _EscherRuby: https://github.com/emartech/escher-ruby
