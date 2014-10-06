@@ -11,7 +11,7 @@ using it to identify the data center, the service and the protocol. An
 Amazon example is "us-east-1/iam/aws4_request", while you can define a scope
 like "eu-vienna/*yourproductname*/escher_request".
 
-.. note:: You should not modify
+.. note::
    While all the implementation should allow you to modify the algo prefix,
    vendor key and authorization, date header names, you should keep the
    defaults.

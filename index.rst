@@ -1,8 +1,3 @@
-.. Escher documentation master file, created by
-   sphinx-quickstart on Sun Sep 21 21:05:03 2014.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to Escher's documentation!
 ==================================
 
@@ -16,21 +11,18 @@ Your help will be *much welcomed*, we are especially interested in **code review
 
 Feel free to join and discuss at Escher's `general mailing list <https://groups.google.com/forum/#!forum/escherauth>`_.
 
-**Implementations**:
- * **PHP** - source code: EscherPHP_ - composer package: `emartech/escher <https://packagist.org/packages/emartech/escher>`_
- * **Ruby** - source code: EscherRuby_ - gem: `escher <https://rubygems.org/gems/escher>`_
- * **NodeJS** - source code: EscherJS_ - npm package: `escher-auth <https://www.npmjs.org/package/escher-auth>`_
-
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
+   index
    using
-
-.. _EscherPHP: https://github.com/emartech/escher-php
-.. _EscherRuby: https://github.com/emartech/escher-ruby
-.. _EscherJS: https://github.com/emartech/escher-js
+   use_cases
+   implementations
+     escher-ruby
+     escher-js
+     escher-php
 
 Indices and tables
 ==================
