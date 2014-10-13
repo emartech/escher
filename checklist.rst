@@ -1,5 +1,5 @@
-Checklist
-=========
+Checklist for Auditing
+======================
 
 Are you ready with your implementation, and would like to double check if it works
 well and secure? First, you should run the test package, but we are also providing
