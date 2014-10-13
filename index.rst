@@ -16,13 +16,12 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   index
    using
    use_cases
    implementations
-     escher-ruby
-     escher-js
-     escher-php
+   escher-ruby
+   escher-js
+   escher-php
 
 Indices and tables
 ==================
