@@ -4,7 +4,8 @@ EscherPHP
  * Source code: `EscherPHP <https://github.com/emartech/escher-php>`_
  * Composer package: `emartech/escher <https://packagist.org/packages/emartech/escher>`_
 
-## Installation
+Installation
+------------
 
 We are supporting Composer as a package manager. Please refer to
 `Composer's documentation <https://getcomposer.org/doc/01-basic-usage.md#installation>`_ if you
@@ -18,7 +19,8 @@ If Composer is installed, you can install the *emartech-escher* composer package
 
 It will create a `composer.json` file if not exists, and configure it properly.
 
-## Usage
+Usage
+-----
 
 To load the library, add the Composer autoloader to your code:
 
@@ -29,8 +31,7 @@ To load the library, add the Composer autoloader to your code:
 The library has 3 interface. You can sign an HTTP request, you can presign an URL and you can validate a
 signed HTTP request or presigned URL (with the same method).
 
-Signing a request
------------------
+**Signing a request**
 
 Escher works by calculating a cryptographic signature of your request, and adding it (and other authentication
 information) to said request.
@@ -53,8 +54,7 @@ Let's say you want to send a signed POST request to http://example.com/ using th
        'headers' => $headersWithAuthInfo
    ));
 
-Presigning an URL
------------------
+**Presigning an URL**
 
 In some cases you may want to send authenticated requests from a context where you cannot modify the request headers,
 e.g. when embedding an API generated iframe.
@@ -66,8 +66,7 @@ You can however generate a presigned URL, where the authentication information i
        ->presignUrl('YOUR ACCESS KEY ID', 'YOUR SECRET', 'http://example.com');
 
 
-Validating a request
---------------------
+**Validating a request**
 
 You can validate a request signed by the methods described above. For that you will need a database of the access keys and secrets of your clients.
 Escher accepts any kind of object as a key database that implements the ArrayAccess interface. (It also accepts plain arrays, however it is not recommended to use a php array for a database of API secrets - it's just there to ease testing)
