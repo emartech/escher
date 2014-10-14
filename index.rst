@@ -22,6 +22,8 @@ Contents:
    escher-ruby
    escher-js
    escher-php
+   implementing
+   checklist
 
 Indices and tables
 ==================
