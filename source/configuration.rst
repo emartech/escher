@@ -1,12 +1,9 @@
-Using Escher
-============
+Configuring Escher
+==================
 
 You have to have some service specific constants when you would like to use
 Escher. If you are implementing a client, it will be provided by the service
 owner. If you are a service owner, you have to define them for your users.
-
-Options
--------
 
 .. note::
 
