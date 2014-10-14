@@ -120,8 +120,6 @@
     </section>
 
   </div>
-  {% include "versions.html" %}
-
   {% if not embedded %}
 
     <script type="text/javascript">
@@ -146,11 +144,11 @@
 
   {# STICKY NAVIGATION #}
   {% if theme_sticky_navigation %}
-  <!--script type="text/javascript">
+  <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.StickyNav.enable();
       });
-  </script-->
+  </script>
   {% endif %}
 
   {%- block footer %} {% endblock %}
