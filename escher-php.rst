@@ -6,11 +6,25 @@ EscherPHP
 
 ## Installation
 
-You can install the *emartech-escher* composer package by:
+We are supporting Composer as a package manager. Please refer to
+`Composer's documentation <https://getcomposer.org/doc/01-basic-usage.md#installation>`_ if you
+would like to install it to your project.
 
-**TBD**
+If Composer is installed, you can install the *emartech-escher* composer package by:
+
+.. code-block:: bash
+
+   composer require emartech/escher
+
+It will create a `composer.json` file if not exists, and configure it properly.
 
 ## Usage
+
+To load the library, add the Composer autoloader to your code:
+
+.. code-block:: php
+
+   require 'vendor/autoload.php';
 
 The library has 3 interface. You can sign an HTTP request, you can presign an URL and you can validate a
 signed HTTP request or presigned URL (with the same method).
