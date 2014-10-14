@@ -38,7 +38,7 @@ information) to the request.
 Usually you will want to add the authentication information by appending extra headers to it.
 Let's say you want to send a signed POST request to http://example.com/ using the Guzzle\Http library:
 
-.. code-block: php
+.. code-block:: php
 
    $method = 'POST';
    $url = 'http://example.com';
@@ -60,7 +60,7 @@ In some cases you may want to send authenticated requests from a context where y
 e.g. when embedding an API generated iframe.
 You can however generate a presigned URL, where the authentication information is added to the query string.
 
-.. code-block: php
+.. code-block:: php
 
    $presignedUrl = Escher::create('example/credential/scope')
        ->presignUrl('YOUR ACCESS KEY ID', 'YOUR SECRET', 'http://example.com');
@@ -71,7 +71,7 @@ You can however generate a presigned URL, where the authentication information i
 You can validate a request signed by the methods described above. For that you will need a database of the access keys and secrets of your clients.
 Escher accepts any kind of object as a key database that implements the ArrayAccess interface. (It also accepts plain arrays, however it is not recommended to use a php array for a database of API secrets - it's just there to ease testing)
 
-.. code-block: php
+.. code-block:: php
 
    try {
        $keyDB = new ArrayObject(array(
