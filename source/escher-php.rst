@@ -17,7 +17,8 @@ If Composer is installed, you can install the *emartech-escher* composer package
 
    composer require emartech/escher
 
-It will create a `composer.json` file if not exists, and configure it properly.
+It will create a `composer.json` file if not exists, and adds Escher as a required library to
+your project.
 
 Usage
 -----
@@ -26,12 +27,15 @@ To load the library, add the Composer autoloader to your code:
 
 .. code-block:: php
 
+   <?php
+
    require 'vendor/autoload.php';
 
-The library has 3 interface. You can sign an HTTP request, you can presign an URL and you can validate a
-signed HTTP request or presigned URL (with the same method).
+The library has 3 interfaces you can call. You can sign an HTTP request, you can presign an URL
+and you can validate a signed HTTP request or presigned URL (with the same method).
 
-**Signing a request**
+Signing a request
+^^^^^^^^^^^^^^^^^
 
 Escher works by calculating a cryptographic signature of your request, and adding it (and other authentication
 information) to the request.
@@ -39,6 +43,8 @@ Usually you will want to add the authentication information by appending extra h
 Let's say you want to send a signed POST request to http://example.com/ using the Guzzle\Http library:
 
 .. code-block:: php
+
+   <?php
 
    $method = 'POST';
    $url = 'http://example.com';
@@ -54,7 +60,8 @@ Let's say you want to send a signed POST request to http://example.com/ using th
        'headers' => $headersWithAuthInfo
    ));
 
-**Presigning an URL**
+Presigning an URL
+^^^^^^^^^^^^^^^^^
 
 In some cases you may want to send authenticated requests from a context where you cannot modify the request headers,
 e.g. when embedding an API generated iframe.
@@ -62,16 +69,21 @@ You can however generate a presigned URL, where the authentication information i
 
 .. code-block:: php
 
+   <?php
+
    $presignedUrl = Escher::create('example/credential/scope')
        ->presignUrl('YOUR ACCESS KEY ID', 'YOUR SECRET', 'http://example.com');
 
 
-**Validating a request**
+Validating a request
+^^^^^^^^^^^^^^^^^^^^
 
 You can validate a request signed by the methods described above. For that you will need a database of the access keys and secrets of your clients.
 Escher accepts any kind of object as a key database that implements the ArrayAccess interface. (It also accepts plain arrays, however it is not recommended to use a php array for a database of API secrets - it's just there to ease testing)
 
 .. code-block:: php
+
+   <?php
 
    try {
        $keyDB = new ArrayObject(array(

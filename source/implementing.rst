@@ -1,14 +1,20 @@
-Implementation Guide
-====================
+Creating a new implementation
+=============================
 
-Implementing the Escher protocol is not trivial. We have collected a strategy,
-best practices and ideas we think will help you if you would like to create an
-Escher implementation in a new programming language.
+Implementing the Escher protocol is not trivial, there are a lot of details you
+have to care about. We have created an overview, a guide and a checklist to help
+you if you would like to create an Escher implementation for a new programming
+language.
 
- * Create a group which can handle all requests
-    * in a particular programming language and setting, http requests are available
-      differently
-    * it is useful if the SR has a representation independent of the information's framework request group
- * After you've created the parts of the header and request, you need to generate the canonical representation
- * Create the signature from the canonical request
- * If the signature is disposable, you can add it to a presigned URL to the request
+ 1. Read our :doc:`overview` about the specification
+ 2. Follow our :doc:`guide` to start
+ 3. Audit your code with the :doc:`checklist`
+ 4. And :doc:`publishing` as an easy to install package
+
+.. toctree::
+   :hidden:
+
+   overview
+   guide
+   checklist
+   publishing

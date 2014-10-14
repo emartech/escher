@@ -1,11 +1,12 @@
-Welcome to Escher's documentation!
-==================================
+Escher - stateless HTTP request signing
+=======================================
 
-Escher is a **stateless HTTP request signing library** to allow secure authorization and request validation.
-It is a generalized version of Amazon's AWS Signature Version algorithm. The goal was implementing a protocol
-where every request is validated, and impossible to modify without knowing the secret.
+Escher is a **stateless HTTP request signing spec** to allow secure authorization and request validation.
+The algorithm is based on `Amazon's AWS4 authentication <http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html>`_.
+The goal was implementing a protocol where every request is validated, and impossible to modify without
+knowing the secret.
 
-Escher is great for creating secure REST API servers, both the **request signing**, and **validation** are
+Escher is great for creating **secure REST API servers**, both the **request signing**, and **validation** are
 implemented. The protocol also provides a solution for **presigning URLs** with expiration.
 
 The status is **work in progress**.
@@ -15,19 +16,14 @@ Your help will be *much welcomed*, we are especially interested in **code review
 
 Feel free to join and discuss at Escher's `general mailing list <https://groups.google.com/forum/#!forum/escherauth>`_.
 
-.. toctree::
-   :maxdepth: 2
+Contents
+--------
 
+.. toctree::
+   :titlesonly:
+
+   self
    configuration
    use_cases
    implementations
    implementing
-   checklist
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-

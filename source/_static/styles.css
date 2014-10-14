@@ -1,14 +1,14 @@
 .wy-side-nav-search {
-    background: #163c8e;
+    background: #2980b9;
     background-position: 12px 10px;
     background-repeat: no-repeat;
 }
 
 .wy-nav-side {
-    background: #072568;
+    background: #2c3e50;
 }
 .rst-versions {
-    border-top-color: #072568;
+    border-top-color: #2c3e50;
 }
 
 .rst-content table td,
@@ -40,8 +40,9 @@ code,
     margin-left: 16px;
 }
 
-
-
+.rst-footer-buttons {
+    display: none;
+}
 
 /* Solarized Dark
 

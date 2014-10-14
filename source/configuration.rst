@@ -12,7 +12,8 @@ owner. If you are a service owner, you have to define them for your users.
 
 **credential scope**
 
-The most important service constant is the *credential scope*. It is a
+The most important service constant is the *credential scope*, this is the
+only one required parameter when you are using the library. It is a
 slash separated, hierarchical id, containing the service's scope. Amazon
 using it to identify the data center, the service and the protocol. An
 Amazon example is "us-east-1/iam/aws4_request". You should define a scope
