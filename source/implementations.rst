@@ -7,8 +7,8 @@ HTTP request representation for signing and authentication.
 
 **Official implementations**:
 
-.. toc-tree::
-   :max-depth: 2
+.. toctree::
+   :maxdepth: 2
 
    escher-ruby
    escher-js
