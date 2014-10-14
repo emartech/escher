@@ -15,3 +15,22 @@ like "eu-vienna/*yourproductname*/escher_request".
    While all the implementation should allow you to modify the algo prefix,
    vendor key and authorization, date header names, you should keep the
    defaults.
+
+Setting Options
+===============
+
+ * algo_prefix
+Algorithm prefix which defines the algorithm. It is not advised to be changed.
+Can be changed in order to use this library with the services of amazon.
+ * vendor
+Belongs to the algorithm, it can be changed only because of the amazon compatibility.
+ * hash_algo
+Defines the algorithm of the signature. 2 values are supported: SHA256 and SHA252
+ * current_time
+testing purposes
+ * auth_header_name
+ * date_header_name
+Defines how to transfer authentication and date information in the http headers
+ * clock_skew
+Handles the difference between the clock of the client and the server. Small differences can cause the invalidity of the signature.
+A timeframe can be configured, so the server accepts the request in the case of time difference as well.
