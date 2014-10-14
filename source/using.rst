@@ -5,32 +5,43 @@ You have to have some service specific constants when you would like to use
 Escher. If you are implementing a client, it will be provided by the service
 owner. If you are a service owner, you have to define them for your users.
 
-The most important service constant is the **credential scope**. It is a
-slash separated, hierarchical id, containing the service's scope. Amazon
-using it to identify the data center, the service and the protocol. An
-Amazon example is "us-east-1/iam/aws4_request", while you can define a scope
-like "eu-vienna/*yourproductname*/escher_request".
+Options
+-------
 
 .. note::
-   While all the implementation should allow you to modify the algo prefix,
-   vendor key and authorization, date header names, you should keep the
-   defaults.
 
-Setting Options
-===============
+   In practice, you should only change the credential scope, and keep the
+   defaults of the other options.
 
- * algo_prefix
-Algorithm prefix which defines the algorithm. It is not advised to be changed.
-Can be changed in order to use this library with the services of amazon.
- * vendor
-Belongs to the algorithm, it can be changed only because of the amazon compatibility.
- * hash_algo
-Defines the algorithm of the signature. 2 values are supported: SHA256 and SHA252
- * current_time
-testing purposes
- * auth_header_name
- * date_header_name
-Defines how to transfer authorization and date information in the http headers
- * clock_skew
-Handles the difference between the clock of the client and the server. Small differences can cause the invalidity of the signature.
-A timeframe can be configured, so the server accepts the request in the case of time difference as well.
+**credential scope**
+
+The most important service constant is the *credential scope*. It is a
+slash separated, hierarchical id, containing the service's scope. Amazon
+using it to identify the data center, the service and the protocol. An
+Amazon example is "us-east-1/iam/aws4_request". You should define a scope
+like "eu-vienna/*yourproductname*/escher_request".
+
+**clock_skew**
+
+This option defines the maximum allowed window of the difference between
+the clock of the client and the server, as it's quite typical that
+computer times are not synced well. Without this setting, even small
+differences could cause the invalidity of the signature.
+
+The default is ±900 secs (15 mins), it's generally works well. You might
+want to allow smaller difference only.
+
+**algo_prefix**, **vendor_key**, **auth_header_name** and **date_header_name**
+
+These options are implemented to keep the compability with the Amazon AWS4
+protocol, it is not advised to change them.
+
+**hash_algo**
+
+Defines the hash algorithm used to calculate the signature. There are two
+supported values: *SHA256* and *SHA512*.
+
+**current_time**
+
+For testing purposes, as tests need to have an injected time for
+repeatability reasons.
