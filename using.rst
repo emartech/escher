@@ -30,7 +30,7 @@ Defines the algorithm of the signature. 2 values are supported: SHA256 and SHA25
 testing purposes
  * auth_header_name
  * date_header_name
-Defines how to transfer authentication and date information in the http headers
+Defines how to transfer authorization and date information in the http headers
  * clock_skew
 Handles the difference between the clock of the client and the server. Small differences can cause the invalidity of the signature.
 A timeframe can be configured, so the server accepts the request in the case of time difference as well.

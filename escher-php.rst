@@ -19,8 +19,8 @@ Signing a request
 -----------------
 
 Escher works by calculating a cryptographic signature of your request, and adding it (and other authentication
-information) to said request.
-Usually you will want to add the authentication information to the request by appending extra headers to it.
+information) to the request.
+Usually you will want to add the authentication information by appending extra headers to it.
 Let's say you want to send a signed POST request to http://example.com/ using the Guzzle\Http library:
 
     $method = 'POST';
@@ -37,8 +37,8 @@ Let's say you want to send a signed POST request to http://example.com/ using th
         'headers' => $headersWithAuthInfo
     ));
 
-Presigning an URL
------------------
+Presigning a URL
+----------------
 
 In some cases you may want to send authenticated requests from a context where you cannot modify the request headers,
 e.g. when embedding an API generated iframe.
