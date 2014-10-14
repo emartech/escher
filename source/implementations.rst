@@ -7,7 +7,9 @@ HTTP request representation for signing and authentication.
 
 **Official implementations**:
 
- * `EscherRuby <escher-ruby>`_
- * `EscherJS <escher-js>`_
- * `EscherPHP <escher-php>`_
+.. toc-tree::
+   :max-depth: 2
 
+   escher-ruby
+   escher-js
+   escher-php

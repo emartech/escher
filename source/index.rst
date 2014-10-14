@@ -19,9 +19,6 @@ Contents:
    using
    use_cases
    implementations
-   escher-ruby
-   escher-js
-   escher-php
    implementing
    checklist
 
