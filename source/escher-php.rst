@@ -48,7 +48,7 @@ Let's say you want to send a signed POST request to http://example.com/ using th
 
    $method = 'POST';
    $url = 'http://example.com';
-   $requestBody = '{ "this_is": "a_request_body" }';
+   $requestBody = '{"this_is": "a_request_body"}';
    $yourHeaders = array('Content-Type' => 'application/json');
 
    $headersWithAuthInfo = Escher::create('example/credential/scope')

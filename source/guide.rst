@@ -15,7 +15,13 @@ Building blocks
 
 Just follow our guide:
 
- 1. Implement a generic Request object - depending on the
+1. Implement a generic Request object
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Typically there's no general request representation. For some programming language there's
+a common used request object, but for other languages every framework might have it's own
+representation. It's a good practice creating an EscherRequest class you can instantiate with
+request objects, and it can provide an interface that Escher can use easily.
 
  * Create a group which can handle all requests
     * in a particular programming language and setting, http requests are available
