@@ -7,13 +7,13 @@ EscherRuby
 Installation
 ------------
 
-We are supporting RubyGems as a package manager. Ruby 1.9 and newer ships with
+We are supporting RubyGems as a package manager. Ruby 1.9 and newer versions are shipped with
 RubyGems built-in, so it should be available on your system by default. You
 might need an update, please check the instructions on the
 `RubyGem's Downloads page <https://rubygems.org/pages/download>`_ for more
 information.
 
-If RubyGem is installed, you can install the *escher* gem by:
+If RubyGems is installed, you can install the *escher* gem by:
 
 .. code-block:: bash
 
@@ -22,7 +22,7 @@ If RubyGem is installed, you can install the *escher* gem by:
 Usage
 -----
 
-From Ruby 1.9, your installed gems are autoloaded automagically, you can
+From Ruby 1.9, your installed gems are autoloaded automatically, you can
 start using Escher after installation.
 
 The library has 3 interfaces you can call. You can sign an HTTP request, you can presign an URL
@@ -52,8 +52,8 @@ Let's say you want to send a signed POST request to http://example.com/ using th
      http.request(req)
    }
 
-Presigning an URL
-^^^^^^^^^^^^^^^^^
+Presigning a URL
+^^^^^^^^^^^^^^^^
 
 In some cases you may want to send authenticated requests from a context where you cannot modify the request headers,
 e.g. when embedding an API generated iframe.

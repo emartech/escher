@@ -17,7 +17,7 @@ If Composer is installed, you can install the *emartech-escher* composer package
 
    composer require emartech/escher
 
-It will create a `composer.json` file if not exists, and adds Escher as a required library to
+It will create a `composer.json` file if does not exist, and add Escher as a required library to
 your project.
 
 Usage
@@ -31,7 +31,7 @@ To load the library, add the Composer autoloader to your code:
 
    require 'vendor/autoload.php';
 
-The library has 3 interfaces you can call. You can sign an HTTP request, you can presign an URL
+The library has 3 interfaces you can call. You can sign an HTTP request, you can presign a URL
 and you can validate a signed HTTP request or presigned URL (with the same method).
 
 Signing a request
@@ -60,8 +60,8 @@ Let's say you want to send a signed POST request to http://example.com/ using th
        'headers' => $headersWithAuthInfo
    ));
 
-Presigning an URL
-^^^^^^^^^^^^^^^^^
+Presigning a URL
+^^^^^^^^^^^^^^^^
 
 In some cases you may want to send authenticated requests from a context where you cannot modify the request headers,
 e.g. when embedding an API generated iframe.

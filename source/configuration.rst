@@ -14,9 +14,9 @@ credential scope
 ^^^^^^^^^^^^^^^^
 
 The most important service constant is the *credential scope*, this is the
-only one required parameter when you are using the library. It is a
+only required parameter when you are using the library. It is a
 slash separated, hierarchical id, containing the service's scope. Amazon
-using it to identify the data center, the service and the protocol. An
+uses it to identify the data center, the service and the protocol. An
 Amazon example is "us-east-1/iam/aws4_request". You should define a scope
 like "eu-vienna/*yourproductname*/escher_request".
 
@@ -28,7 +28,7 @@ the clock of the client and the server, as it's quite typical that
 computer times are not synced well. Without this setting, even small
 differences could cause the invalidity of the signature.
 
-The default is ±900 secs (15 mins), it's generally works well. You might
+The default is ±900 secs (15 mins), it generally works well. You might
 want to allow smaller difference only.
 
 algo_prefix, vendor_key, auth_header_name and date_header_name
