@@ -18,7 +18,7 @@ only one required parameter when you are using the library. It is a
 slash separated, hierarchical id, containing the service's scope. Amazon
 using it to identify the data center, the service and the protocol. An
 Amazon example is "us-east-1/iam/aws4_request". You should define a scope
-like "eu-vienna/*yourproductname*/escher_request".
+like "eu-vienna/yourproductname/escher_request".
 
 clock_skew
 ^^^^^^^^^^
