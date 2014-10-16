@@ -16,7 +16,7 @@ There are popular solutions for API authentication, but we think Escher is the b
 It's stateless
 ^^^^^^^^^^^^^^
 
-Being stateless means that the server does the authentication don't have to maintain
+Being stateless means that the server does the authentication in a way that it doesn't have to maintain
 a dynamic database with API sessions.
 
 No password or token included
@@ -24,20 +24,20 @@ No password or token included
 
 Using other authentication methods like HTTP Basic Authentication or OAuth, access to the
 communication will reveal the password or a token valid for a longer time. The Escher
-protocol not includes any secret, just a checksum based on your secret. This gives you
+protocol does not includes any secret, just a checksum based on your secret. This gives you
 a higher level of security.
 
 No modifications
 ^^^^^^^^^^^^^^^^
 
 As Escher includes all the important parts of the request when it calculates the checksum,
-modifying the request will invalidate the signature and needs a different one. It means
-that a middle man might be able to read the communication, but cannot to modify.
+modifying the request will invalidate the signature. It means
+that a middle man might be able to read the communication, but cannot modify it.
 
 REST friendly
 ^^^^^^^^^^^^^
 
-Sending requests with the proper HTTP method and URIs are integral part of REST API calls.
+Sending requests with the proper HTTP method and URIs is integral part of REST API calls.
 Because Escher checksum calculation includes the HTTP method and the other typical REST HTTP
 parameters, it won't be possible to send a REST API request differently.
 
