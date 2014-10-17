@@ -23,6 +23,7 @@ Contents
    :titlesonly:
 
    self
+   specification
    configuration
    use_cases
    implementations
