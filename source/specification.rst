@@ -100,7 +100,8 @@ to normalize the path. Basically it means:
 
  * Convert relative paths to absolute, remove redundant path components
  * URI-encode each path components
-   * "reserved characters" defined by `RFC3986 (Uniform Resource Identifier) <http://tools.ietf.org/html/rfc3986>`_
+   * the "reserved characters" defined by
+     `RFC3986 (Uniform Resource Identifier) <http://tools.ietf.org/html/rfc3986>`_
      have to be kept as they are (no encoding applied)
    * all other characters have to be percent encoded, including ``SPACE`` (to ``%20``, instead of ``+``)
    * non-ASCII, UTF-8 characters should be percent encoded to 2 or more pieces (``á`` to `%C3%A1`)
