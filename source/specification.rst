@@ -66,31 +66,31 @@ not includes novelty techniques.
 
 Escher defines a stateless signature generation mechanism. The signature
 is calculated from the key parts of the HTTP request, a service identifier
-string called credential scope, and a client key and secret.
+string called **credential scope**, and a **client key** and **client secret**.
 
 The signature generation steps are: canonicalizing the request, creating
 a string to calculate the signature, and adding the signature to the
 original request.
 
-Canonicalizing the request
---------------------------
+2.1. Canonicalizing the request
+-------------------------------
 
 In order to calculate a checksum from the key HTTP request parts, the
 HTTP request method, the request URI, the query parts, the headers, and
 the request body have to be canonicalized. The output of the
 canonicalization step will be a string includes the request parts
-separated by ``LF`` (Line feed, '\n', 0x0A, 10 in decimal) characters.
+separated by ``LF`` (Line feed, "\n") characters.
 The string will be used to calculate a checksum for the request.
 
-The HTTP method
-^^^^^^^^^^^^^^^
+2.1.1. The HTTP method
+^^^^^^^^^^^^^^^^^^^^^^
 
 The HTTP method defined by `RFC2616 (Hypertext Transfer Protocol) <https://tools.ietf.org/html/rfc2616#section-5.1.1>`_
 is case sensitive, and must be available in upper case, no transformation
 have to be applied.
 
-The Path
-^^^^^^^^
+2.1.2. The Path
+^^^^^^^^^^^^^^^
 
 The path is the absolute path of the URL. Starts with a slash (``/``)
 character, and not includes the query part (and the question mark).
@@ -108,8 +108,8 @@ to normalize the path. Basically it means:
 
  * Normalize empty paths to ``/``
 
-The Query String
-^^^^^^^^^^^^^^^^
+2.1.3. The Query String
+^^^^^^^^^^^^^^^^^^^^^^^
 
 `RFC3986 (Uniform Resource Identifier) <http://tools.ietf.org/html/rfc3986>`_ should provide guidance for
 canonicalization of the query string, but here's the complete list of the rules have to be applied:
@@ -128,13 +128,83 @@ canonicalization of the query string, but here's the complete list of the rules 
  * Separate parameter names and values by ``=`` signs, include ``=`` for empty values, too
  * Separate parameters by ``&``
 
-The Headers
-^^^^^^^^^^^
+2.1.4. The Headers
+^^^^^^^^^^^^^^^^^^
 
-To canonicalize the headers, these rules have to be followed:
+To canonicalize the headers, the following rules have to be followed:
 
  * Lower case the header names
  * Separate header names and values by a ``:``, with no spaces
  * Sort header names to alphabetical order (ASCII)
  * Group headers with the same names into one header, and separate their values by commas, without sorting
  * Trim header values, keep all the spaces between quote characters (``"``)
+
+2.1.5. Signed Headers
+^^^^^^^^^^^^^^^^^^^^^
+
+The list of headers to include when calculating the signature. Lower cased value of header names,
+separated by ``;``.
+
+2.1.6. Body Checksum
+^^^^^^^^^^^^^^^^^^^^
+
+A checksum for the request body, aka the payload have to be calculated. Escher supports SHA-256 and SHA-512
+algorithms for checksum calculation. If the request contains no body, an empty string have to be used as
+the input for the hash algorithm.
+
+The selected algorithm will be added later to the authorization header, so the server will be able to use
+the same algorithm for validation.
+
+The checksum of the body have to be presented as a lower cased hexadecimal string.
+
+2.1.7. Concatenating the canonicalized parts
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+All the steps above produce a row of data, except the headers canonicalization creates one row per headers.
+These have to be concatenated with ``LF`` (Line feed, "\n") characters into a string.
+
+
+2.2. Creating a string to calculate the signature
+-------------------------------------------------
+
+The next step is creating an other string will be directly used to calculate the signature.
+
+2.2.1. Algorithm ID
+^^^^^^^^^^^^^^^^^^^
+
+The **algorithm ID** is an identifier coming from the **algo_prefix** (default value is ``ESR``) and the algorithm
+used to calculate checksums during the signing process. The strings **algo_prefix**, "HMAC", and the algorithm
+name should be concatenated with dashed, like this:
+
+  ``ESR-HMAC-SHA256``
+
+2.2.2. Long Date
+^^^^^^^^^^^^^^^^
+
+The long date is the request date in the `ISO 8601 <http://en.wikipedia.org/wiki/ISO_8601>`_ *basic* format,
+like ``YYYYMMDD + T + HHMMSS + Z``. Note that the basic format using no punctuation. Example is:
+
+  ``20141022T120000Z``
+
+This date have to be added later, too, as a date header (default header name is ``X-Escher-Date``).
+
+2.2.3. Date and Credential Scope
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Next information is the **short date**, and the **credential scope** concatenated with a ``/`` character.
+The **short date** is the request date's date only ISO 8601 basic formatted representation, the
+**credential scope** is defined by the service. Example:
+
+  ``20141022/eu-vienna/yourproductname/escher_request``
+
+This will be added later, too, as part of the authorization header (default header name is ``X-Escher-Auth``).
+
+2.2.4. Checksum of the Canonicalized Request
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Last step is taking the output of step *2.1.7.*, and create a checksum from the canonicalized checksum string.
+This checksum have to be presented as a lower cased hexadecimal string, too.
+
+2.3. Calculating the Signing Key
+--------------------------------
+
