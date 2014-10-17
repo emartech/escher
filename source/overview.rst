@@ -77,12 +77,12 @@ At the end, with the string above, and this signing_key, it calculates a checksu
 with HMAC.
 
 Adding the signature to the HTTP headers
-========================================
+----------------------------------------
 
 The final step is adding the signature to the request, as a new header. If the request
-has no host, or has no date header, they will be added, too.
+has no host, or has no date header, they have to be added, too.
 
-The end of the process looks like this:
+At the end of the process, the HTTP request will be like this:
 
 .. code-block:: http
 
@@ -93,15 +93,15 @@ The end of the process looks like this:
    Content-Type: application/x-www-form-urlencoded
    Content-Length: 21
    Host: example.com
-   X-ESR-Date: 20141022T120000Z
-   X-ESR-Auth: ESR-HMAC-SHA256 Credential=API_KEY/20141022/eu-vienna/yourproductname/escher_request,
+   X-Escher-Date: 20141022T120000Z
+   X-Escher-Auth: ESR-HMAC-SHA256 Credential=API_KEY/20141022/eu-vienna/yourproductname/escher_request,
      SignedHeaders=host;x-esr-date,
      Signature=abcdef01234567890abcdef01234567890abcdef01234567890abcdef0123456
 
    message=Hello%20World
 
 More
-====
+----
 
 To get more information, you can read our detailed :doc:`specification`, our check out one of the
 :doc:`implementations`.
