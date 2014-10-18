@@ -164,8 +164,8 @@ All the steps above produce a row of data, except the headers canonicalization c
 These have to be concatenated with ``LF`` (Line feed, "\n") characters into a string.
 
 
-2.2. Creating a string to calculate the signature
--------------------------------------------------
+2.2. Creating the signature
+---------------------------
 
 The next step is creating an other string will be directly used to calculate the signature.
 
@@ -202,9 +202,27 @@ This will be added later, too, as part of the authorization header (default head
 2.2.4. Checksum of the Canonicalized Request
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Last step is taking the output of step *2.1.7.*, and create a checksum from the canonicalized checksum string.
+Take the output of step *2.1.7.*, and create a checksum from the canonicalized checksum string.
 This checksum have to be presented as a lower cased hexadecimal string, too.
 
-2.3. Calculating the Signing Key
---------------------------------
+2.2.5. The Signing Key
+^^^^^^^^^^^^^^^^^^^^^^
+
+The signing key is based on the **algo_prefix**, the **client secret**, the parts of the **credential scope**,
+and the request date.
+
+Take the **algo_prefix**, concatenate the **client secret** to it. First apply the HMAC algorithm to
+the **request date** with it, and apply the actual value apply on each of the **credential scope** parts
+(splitted at ``/``). The end result is the signing key.
+
+Pseudo code:
+
+.. code-block:: ruby
+
+   signing_key = algo_prefix + client_secret
+   signing_key = HMAC.Digest(short_request_date, signing_key)
+   foreach credential_scope.split('/') as scope_part
+     signing_key = HMAC.Digest(scope_part, signing_key)
+   end_foreach
+   return signing_key
 
