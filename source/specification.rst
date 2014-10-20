@@ -36,7 +36,7 @@ is more secure than the currently available protocols.
 
 `RFC 2617 (HTTP Authentication) <http://tools.ietf.org/html/rfc2617>`_
 defines Basic and Digest Access Authentication. They're widely used,
-but Basic Access Authentication doesn't encrypts the secret and doesn't
+but Basic Access Authentication doesn't encrypt the secret and doesn't
 add integrity checks to the requests. Digest Access Authentication
 sends the secret encrypted, but the algorithm with creating a checksum
 with a nonce and using md5 should not considered highly secure these
@@ -51,15 +51,15 @@ the third-party application to obtain access on its own behalf. This is
 not helpful for a machine-to-machine communication situation, like a
 REST API authentication, because typically there's no third-party user
 involved. Additionally, after a token is obtained from the authorization
-endpoint, it is used with no encryption, and doesn't provides integration
-checking, or prevents repeating messages. And OAuth 2.0 is a stateful
-protocol, needs a database to store the tokens for client sessions.
+endpoint, it is used with no encryption, and doesn't provide integration
+checking, or prevent repeating messages. OAuth 2.0 is a stateful
+protocol which needs a database to store the tokens for client sessions.
 
-Amazon, and other service providers created protocols addressing these
+Amazon and other service providers created protocols addressing these
 issues, however there are no public standard with open source
 implementations available from them. As Escher is based on a publicly
 documented, widely, in-the-wild used protocol, the specification
-not includes novelty techniques.
+does not include novelty techniques.
 
 2. Signing an HTTP request
 --------------------------
@@ -78,7 +78,7 @@ original request.
 In order to calculate a checksum from the key HTTP request parts, the
 HTTP request method, the request URI, the query parts, the headers, and
 the request body have to be canonicalized. The output of the
-canonicalization step will be a string includes the request parts
+canonicalization step will be a string including the request parts
 separated by ``LF`` (Line feed, "\n") characters.
 The string will be used to calculate a checksum for the request.
 
@@ -87,13 +87,13 @@ The string will be used to calculate a checksum for the request.
 
 The HTTP method defined by `RFC2616 (Hypertext Transfer Protocol) <https://tools.ietf.org/html/rfc2616#section-5.1.1>`_
 is case sensitive, and must be available in upper case, no transformation
-have to be applied.
+has to be applied.
 
 2.1.2. The Path
 ^^^^^^^^^^^^^^^
 
 The path is the absolute path of the URL. Starts with a slash (``/``)
-character, and not includes the query part (and the question mark).
+character, and does not include the query part (and the question mark).
 
 Escher follows the rules defined by `RFC3986 (Uniform Resource Identifier) <http://tools.ietf.org/html/rfc3986>`_
 to normalize the path. Basically it means:
@@ -112,7 +112,7 @@ to normalize the path. Basically it means:
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 `RFC3986 (Uniform Resource Identifier) <http://tools.ietf.org/html/rfc3986>`_ should provide guidance for
-canonicalization of the query string, but here's the complete list of the rules have to be applied:
+canonicalization of the query string, but here's the complete list of the rules to be applied:
 
  * URI-encode each query parameter names and values
 
@@ -123,7 +123,7 @@ canonicalization of the query string, but here's the complete list of the rules 
 
  * Normalize empty query strings to empty string
  * Sort query parameters by the encoded parameter names (ASCII order)
- * Do not short parameter values if their parameter name is the same (``key=B&key=A`` is a valid output),
+ * Do not shorten parameter values if their parameter name is the same (``key=B&key=A`` is a valid output),
    the order of parameters in a URL may be significant (this is not defined by the HTTP standard)
  * Separate parameter names and values by ``=`` signs, include ``=`` for empty values, too
  * Separate parameters by ``&``
@@ -148,33 +148,33 @@ separated by ``;``.
 2.1.6. Body Checksum
 ^^^^^^^^^^^^^^^^^^^^
 
-A checksum for the request body, aka the payload have to be calculated. Escher supports SHA-256 and SHA-512
-algorithms for checksum calculation. If the request contains no body, an empty string have to be used as
+A checksum for the request body, aka the payload has to be calculated. Escher supports SHA-256 and SHA-512
+algorithms for checksum calculation. If the request contains no body, an empty string has to be used as
 the input for the hash algorithm.
 
 The selected algorithm will be added later to the authorization header, so the server will be able to use
 the same algorithm for validation.
 
-The checksum of the body have to be presented as a lower cased hexadecimal string.
+The checksum of the body has to be presented as a lower cased hexadecimal string.
 
 2.1.7. Concatenating the canonicalized parts
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-All the steps above produce a row of data, except the headers canonicalization creates one row per headers.
+All the steps above produce a row of data, except the headers canonicalization, as it creates one row per headers.
 These have to be concatenated with ``LF`` (Line feed, "\n") characters into a string.
 
 
 2.2. Creating the signature
 ---------------------------
 
-The next step is creating an other string will be directly used to calculate the signature.
+The next step is creating another string which will be directly used to calculate the signature.
 
 2.2.1. Algorithm ID
 ^^^^^^^^^^^^^^^^^^^
 
 The **algorithm ID** is an identifier coming from the **algo_prefix** (default value is ``ESR``) and the algorithm
 used to calculate checksums during the signing process. The strings **algo_prefix**, "HMAC", and the algorithm
-name should be concatenated with dashed, like this:
+name should be concatenated with dashes, like this:
 
   ``ESR-HMAC-SHA256``
 
@@ -182,11 +182,11 @@ name should be concatenated with dashed, like this:
 ^^^^^^^^^^^^^^^^
 
 The long date is the request date in the `ISO 8601 <http://en.wikipedia.org/wiki/ISO_8601>`_ *basic* format,
-like ``YYYYMMDD + T + HHMMSS + Z``. Note that the basic format using no punctuation. Example is:
+like ``YYYYMMDD + T + HHMMSS + Z``. Note that the basic format uses no punctuation. Example is:
 
   ``20141022T120000Z``
 
-This date have to be added later, too, as a date header (default header name is ``X-Escher-Date``).
+This date has to be added later, too, as a date header (default header name is ``X-Escher-Date``).
 
 2.2.3. Date and Credential Scope
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -203,7 +203,7 @@ This will be added later, too, as part of the authorization header (default head
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Take the output of step *2.1.7.*, and create a checksum from the canonicalized checksum string.
-This checksum have to be presented as a lower cased hexadecimal string, too.
+This checksum has to be presented as a lower cased hexadecimal string, too.
 
 2.2.5. The Signing Key
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -212,7 +212,7 @@ The signing key is based on the **algo_prefix**, the **client secret**, the part
 and the request date.
 
 Take the **algo_prefix**, concatenate the **client secret** to it. First apply the HMAC algorithm to
-the **request date** with it, and apply the actual value apply on each of the **credential scope** parts
+the **request date**, then apply the actual value on each of the **credential scope** parts
 (splitted at ``/``). The end result is the signing key.
 
 Pseudo code:
