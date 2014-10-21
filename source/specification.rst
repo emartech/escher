@@ -205,7 +205,19 @@ This will be added later, too, as part of the authorization header (default head
 Take the output of step *2.1.7.*, and create a checksum from the canonicalized checksum string.
 This checksum have to be presented as a lower cased hexadecimal string, too.
 
-2.2.5. The Signing Key
+2.2.5. Concatenating the Signing String
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Concatenate the outputs of steps 2.2. with ``LF`` characters. Example output:
+
+.. code-block:: string
+
+   ESR-HMAC-SHA256
+   20141022T120000Z
+   20141022/eu-vienna/yourproductname/escher_request
+   01234567890abcdef01234567890abcdef01234567890abcdef01234567890ab
+
+2.2.6. The Signing Key
 ^^^^^^^^^^^^^^^^^^^^^^
 
 The signing key is based on the **algo_prefix**, the **client secret**, the parts of the **credential scope**,
@@ -226,3 +238,8 @@ Pseudo code:
    end_foreach
    return signing_key
 
+2.2.7. Create the Signature
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The signature is created from the output of steps *2.2.5.* (Signing String) and *2.2.6.* (Signing Key). With
+the selected algorithm, create a checksum
