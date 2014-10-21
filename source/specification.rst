@@ -72,6 +72,9 @@ The signature generation steps are: canonicalizing the request, creating
 a string to calculate the signature, and adding the signature to the
 original request.
 
+Escher supports two hash algorithms: `SHA256 and SHA512 <http://csrc.nist.gov/groups/STM/cavp/documents/shs/sha256-384-512.pdf>`_
+designed by the NSA (U.S. National Security Agency).
+
 2.1. Canonicalizing the request
 -------------------------------
 
@@ -87,7 +90,9 @@ The string will be used to calculate a checksum for the request.
 
 The HTTP method defined by `RFC2616 (Hypertext Transfer Protocol) <https://tools.ietf.org/html/rfc2616#section-5.1.1>`_
 is case sensitive, and must be available in upper case, no transformation
-has to be applied.
+has to be applied:
+
+  ``POST``
 
 2.1.2. The Path
 ^^^^^^^^^^^^^^^
@@ -107,6 +112,10 @@ to normalize the path. Basically it means:
    * percent encoded hexadecimal numbers have to be upper cased (eg: ``a%c2%b1b`` to ``a%C2%B1b``)
 
  * Normalize empty paths to ``/``
+
+For example:
+
+  ``/path/resource/``
 
 2.1.3. The Query String
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -128,6 +137,10 @@ canonicalization of the query string, but here's the complete list of the rules 
  * Separate parameter names and values by ``=`` signs, include ``=`` for empty values, too
  * Separate parameters by ``&``
 
+For example:
+
+  ``foo=bar&abc=efg``
+
 2.1.4. The Headers
 ^^^^^^^^^^^^^^^^^^
 
@@ -139,11 +152,24 @@ To canonicalize the headers, the following rules have to be followed:
  * Group headers with the same names into one header, and separate their values by commas, without sorting
  * Trim header values, keep all the spaces between quote characters (``"``)
 
+For example:
+
+.. code-block:: http
+
+   accept:*/*
+   user-agent:example-client
+   connection:close
+   content-type:application/x-www-form-urlencoded
+   content-length:21
+   host:example.com
+
 2.1.5. Signed Headers
 ^^^^^^^^^^^^^^^^^^^^^
 
 The list of headers to include when calculating the signature. Lower cased value of header names,
-separated by ``;``.
+separated by ``;``, like this:
+
+  ``date;host``
 
 2.1.6. Body Checksum
 ^^^^^^^^^^^^^^^^^^^^
@@ -155,14 +181,29 @@ the input for the hash algorithm.
 The selected algorithm will be added later to the authorization header, so the server will be able to use
 the same algorithm for validation.
 
-The checksum of the body has to be presented as a lower cased hexadecimal string.
+The checksum of the body has to be presented as a lower cased hexadecimal string, for example:
+
+  ``fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210``
 
 2.1.7. Concatenating the canonicalized parts
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 All the steps above produce a row of data, except the headers canonicalization, as it creates one row per headers.
-These have to be concatenated with ``LF`` (Line feed, "\n") characters into a string.
+These have to be concatenated with ``LF`` (Line feed, "\n") characters into a string. An example:
 
+.. code-block:: string
+
+   POST
+   /path/resource/
+   foo=bar&abc=efg
+   accept:*/*
+   user-agent:example-client
+   connection:close
+   content-type:application/x-www-form-urlencoded
+   content-length:21
+   host:example.com
+   date;host
+   fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210
 
 2.2. Creating the signature
 ---------------------------
@@ -192,7 +233,7 @@ This date has to be added later, too, as a date header (default header name is `
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Next information is the **short date**, and the **credential scope** concatenated with a ``/`` character.
-The **short date** is the request date's date only ISO 8601 basic formatted representation, the
+The **short date** is the request date's date part ISO 8601 basic formatted representation, the
 **credential scope** is defined by the service. Example:
 
   ``20141022/eu-vienna/yourproductname/escher_request``
@@ -203,7 +244,10 @@ This will be added later, too, as part of the authorization header (default head
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Take the output of step *2.1.7.*, and create a checksum from the canonicalized checksum string.
-This checksum has to be presented as a lower cased hexadecimal string, too.
+This checksum has to be presented as a lower cased hexadecimal string, too. Something like this
+will be an output:
+
+  ``0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef``
 
 2.2.5. Concatenating the Signing String
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -215,7 +259,7 @@ Concatenate the outputs of steps 2.2. with ``LF`` characters. Example output:
    ESR-HMAC-SHA256
    20141022T120000Z
    20141022/eu-vienna/yourproductname/escher_request
-   01234567890abcdef01234567890abcdef01234567890abcdef01234567890ab
+   0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
 
 2.2.6. The Signing Key
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -225,7 +269,7 @@ and the request date.
 
 Take the **algo_prefix**, concatenate the **client secret** to it. First apply the HMAC algorithm to
 the **request date**, then apply the actual value on each of the **credential scope** parts
-(splitted at ``/``). The end result is the signing key.
+(splitted at ``/``). The end result is a binary signing key.
 
 Pseudo code:
 
@@ -242,4 +286,32 @@ Pseudo code:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The signature is created from the output of steps *2.2.5.* (Signing String) and *2.2.6.* (Signing Key). With
-the selected algorithm, create a checksum
+the selected algorithm, create a checksum. It has to be presented as a lower cased hexadecimal string.
+Something like this will be an output:
+
+  ``abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd``
+
+2.3. Adding the Signature to the Request
+----------------------------------------
+
+The final step of the Escher signing process is adding the Signature to the request. Escher adds a new header
+to the request, by default the header name is ``X-Escher-Auth``. The header value will include the Algorithm ID
+(see *2.2.1.*), the *client key*, the **short date** and the **credential scope** (see *2.2.3.*), the
+**signed headers** string (see *2.1.5.*) and finally the signature (see *2.2.7.*).
+
+The values of this inputs have to be concatenated like this:
+
+.. code-block:: string
+
+  ESR-HMAC-SHA256 Credential=CLIENT_KEY/20141022/eu-vienna/yourproductname/escher_request,
+  SignedHeaders=date;host, Signature=abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd
+
+3. Presigning an URL
+--------------------
+
+**TBD**
+
+4. Validating requests
+----------------------
+
+**TBD**

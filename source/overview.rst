@@ -22,8 +22,8 @@ Let's start with this HTTP request:
 
 Escher creates a string from it, that represents the request in a canonicalized form. The
 string is based on the different parts of the request, separated by line breaks (``\n``).
-Each parts are canonicalized, for example the request method is uppercased, the query
-parameters are ordered, and so.
+Each parts are canonicalized, for example the header names are lower cased and ordered,
+the query parameters are ordered, and so.
 
 Our example request's will look something like this after canonicalization:
 
@@ -38,8 +38,8 @@ Our example request's will look something like this after canonicalization:
    content-type:application/x-www-form-urlencoded
    content-length:21
    host:example.com
-   -signed_headers-
-   -body_checksum-
+   date;host
+   fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210
 
 Calculating the signature
 -------------------------
@@ -55,7 +55,7 @@ It will look something like this:
    ESR-HMAC-SHA256
    20141022T120000Z
    20141022/eu-vienna/yourproductname/escher_request
-   01234567890abcdef01234567890abcdef01234567890abcdef01234567890ab
+   0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
 
 Also we are creating a key, we are going to use for calculating the signature. It is
 based on the API secret, the algo_prefix ("ESR" by default), the current date, and
