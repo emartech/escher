@@ -1,8 +1,9 @@
 Implementations
 ===============
 
-We are working hard on implementations, please inform us if you would like to help us. All implementation
-should use the language's package manager to install the library, and support at least one common
+We are working hard on implementations. Please inform us if you would like to help us, and don't forget
+to check out our :doc:`implementing` documentation for some instructions. All implementation should
+use the language's package manager to install the library, and support at least one common
 HTTP request representation for signing and authentication.
 
 Official implementations
