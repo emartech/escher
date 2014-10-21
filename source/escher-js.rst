@@ -69,6 +69,8 @@ Let's say you want to send a signed POST request to http://example.com/:
 Presigning a URL
 ^^^^^^^^^^^^^^^^
 
+.. code-block:: javascript
+
    var escher = new Escher({
      credentialScope: 'example/credential/scope',
      accessKeyId: 'EscherExample',
