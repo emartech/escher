@@ -77,8 +77,8 @@ It has to canonicalize the request properly.
        * Must have a comma and a space after signed headers
        * Must state signature
  * Is the implementation consistent?
- 	* Regarding date handling?
- 	* Regarding algorithm?
+ 	* Regarding date handling
+ 	* Regarding algorithm
  	* Regarding credential scope
  	* Regarding full credential scope
 
