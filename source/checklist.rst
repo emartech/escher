@@ -84,7 +84,6 @@ It has to canonicalize the request properly.
 
 Client must provide default constants and hide request canonization and signature.
 
-
 Server must check signatures correctly.
 
 
