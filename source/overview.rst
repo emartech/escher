@@ -1,10 +1,19 @@
 Overview
 ========
 
-Signing an HTTP request is a 4 steps long process. Let's go through these steps.
+This page just a short overview about this process, please read the
+:doc:`specification' for details.
 
-Canonicalizing a request
-------------------------
+Signing a request
+-----------------
+
+Signing an HTTP request is only a few steps.
+
+1. Canonicalizing a request
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Maybe this is the most difficult step, creating the canonicalized version
+of the HTTP requests according to the specification needs a lot of code.
 
 Let's start with this HTTP request:
 
@@ -41,8 +50,8 @@ Our example request's will look something like this after canonicalization:
    date;host
    fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210
 
-Calculating the signature
--------------------------
+2. Calculating the signature
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The next step includes creating a HMAC checksum from the canonicalized request string,
 and creating an other new line separated string, now including the algorithm id,
@@ -57,9 +66,8 @@ It will look something like this:
    20141022/eu-vienna/yourproductname/escher_request
    0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
 
-Also we are creating a key, we are going to use for calculating the signature. It is
-based on the API secret, the algo_prefix ("ESR" by default), the current date, and
-the credential scope.
+Also we are creating a key to calculate the signature. It is based on the API secret,
+the algo_prefix ("ESR" by default), the current date, and the credential scope.
 
 Escher takes the date and the parts of credential scope, and calculates a checksum
 with each part, on the algo_prefix and API secret:
@@ -76,8 +84,8 @@ with each part, on the algo_prefix and API secret:
 At the end, with the string above, and this signing_key, it calculates a checksum
 with HMAC.
 
-Adding the signature to the HTTP headers
-----------------------------------------
+3. Adding the signature to the HTTP headers
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The final step is adding the signature to the request, as a new header. If the request
 has no host, or has no date header, they have to be added, too.

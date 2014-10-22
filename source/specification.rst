@@ -297,6 +297,8 @@ Something like this will be an output:
 
   ``abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd``
 
+.. _add the signature:
+
 2.3. Adding the Signature to the Request
 ----------------------------------------
 
@@ -315,7 +317,63 @@ The values of this inputs have to be concatenated like this:
 3. Presigning an URL
 --------------------
 
-**TBD**
+The URL presigning process is very similar to the request signing procedure. But for an URL, there are
+no headers, no request body, so the calculation of the Signature is different. Also, the Signature cannot
+be added to the headers, but included as query parameters.
+
+A significant difference is that the presigning allows defining an expiration time. By default, it is
+86400 secs, 24 hours. The current time and the expiration time will be included in the URL, and the
+server have to check if the URL is expired.
+
+3.1. Canonicalizing the URL to presign
+--------------------------------------
+
+The canonicalization for URL presigning is the same process as for HTTP requests,
+in this section we will cover the differences only.
+
+3.1.1. The HTTP method
+^^^^^^^^^^^^^^^^^^^^^^
+
+The HTTP method for presigned URLs is fixed to:
+
+  ``GET``
+
+2.1.2. The Path
+^^^^^^^^^^^^^^^
+
+The path is coming from the URL, and the same canonicalization process have to be
+applied to them, as for HTTP requests.
+
+For example:
+
+  ``/path/resource/``
+
+2.1.3. The Query String
+^^^^^^^^^^^^^^^^^^^^^^^
+
+The query is coming from the URL, but the algorithm, credentials, date, expiration time,
+and signed headers have to be added to the query parts.
+
+  ``foo=bar&abc=efg``
+
+2.1.4. The Headers
+^^^^^^^^^^^^^^^^^^
+
+An URL has no headers, Escher creates the Host header based on the URL's domain information, and
+maintains adds it to the canonicalized request.
+
+For example:
+
+.. code-block:: http
+
+   host:example.com
+
+2.1.5. Signed Headers
+^^^^^^^^^^^^^^^^^^^^^
+
+It will be `host`, as that's the only header included. Example:
+
+  ``host``
 
 4. Validating requests
 ----------------------

@@ -22,7 +22,7 @@ and follow our Twitter user `@escherauth <https://twitter.com/escherauth>`_.
 Announcement
 ------------
 
-You can check out our announcement on `NordicAPIs <http://nordicapis.com/events/stockholm-2014-platform-summit/>`_:
+You can check out our Escher announcement was on `NordicAPIs <http://nordicapis.com/events/stockholm-2014-platform-summit/>`_:
 
 .. raw:: html
 
@@ -32,6 +32,7 @@ You can check out our announcement on `NordicAPIs <http://nordicapis.com/events/
      width="550" height="400"
      src="http://prezi.com/embed/dfbss2mfbpqo/?bgcolor=ffffff&amp;lock_to_path=0&amp;autoplay=0&amp;autohide_ctrls=0#">
    </iframe>
+
 
 Contents
 --------

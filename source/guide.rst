@@ -19,15 +19,33 @@ Building blocks
 ---------------
 
 This guide has to be finished, but already can give you some ideas. We are going to
-add more details.
+add more details. You can always check one of the implementations to get more ideas
+about how it works. At the moment, the EscherRuby implementation is in the best
+shape.
 
-1. Implement a generic Request object
--------------------------------------
+1. Implement a generic EscherRequest class
+------------------------------------------
 
 For a programming language, typically there's no general request representation. Some languages
 has a common used request object, but for other languages every framework might have it's own
-representation. It's a good practice creating an EscherRequest class you can instantiate with
-different type of request objects, and it can provide an interface that Escher can use easily.
+representation. It is also typical, that the request object a client creates is different from
+the request object a controller on the server side receives.
+
+It's a good practice creating an EscherRequest class you can instantiate with different type of
+request objects, and it can provide an interface that Escher can use easily.
+
+The Request class should be instantiated with request objects, and provide the following interface
+for the Escher implementation:
+
+ * get the HTTP method (a string)
+ * get the Headers (should be an array of key-value pairs)
+ * get the Host (a string)
+ * get the Path (a string starting with /, not including the question mark, query parameters)
+ * get the Query parameters (should be an array of key-value pairs)
+ * get the Body (a string)
+ * set a Header
+ * has a Header?
+ * give back the request (with possible modifications via header settings, but as the original object's class)
 
 2. Create an Escher class
 -------------------------
@@ -73,19 +91,23 @@ Create a signature from the Signing String and the Signing Key.
 7. Add the Signature to the Headers
 -----------------------------------
 
-**TBD**
+Call the EscherRequest's header settings, and set a proper Auth header, according to
+:ref:`add the signature`.
 
 8. Canonicalize the path properly
---------------------------------
+---------------------------------
 
-**TBD**
+Now go back to your path canonicalization, and fine tune it according to the specification.
+Most of the time, ready-to-use libraries will be available for you, but sometimes they are
+not fully compatible with the standards, or the Escher specification.
 
 9. Canonicalize the query parameters properly
---------------------------------------------
+---------------------------------------------
 
-**TBD**
+And fine tune the query parameter canonicalization as well. If EscherRequest provides
+the query parameters as an array,
 
 10. Canonicalize the headers properly
------------------------------------
+-------------------------------------
 
 **TBD**
