@@ -16,7 +16,8 @@ The status is **work in progress**. We're working on the documentation and finis
 Your help will be *much welcomed*, we are especially interested in **code reviews and audits**,
 **new library implementations in different languages**, **writing the documentation** and **promotion**.
 
-Feel free to join and discuss at Escher's `general mailing list <https://groups.google.com/forum/#!forum/escherauth>`_.
+Feel free to join and discuss at Escher's `general mailing list <https://groups.google.com/forum/#!forum/escherauth>`_,
+and follow our Twitter user `@escherauth <https://twitter.com/escherauth>`.
 
 Contents
 --------
