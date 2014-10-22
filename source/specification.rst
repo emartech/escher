@@ -185,6 +185,8 @@ The checksum of the body has to be presented as a lower cased hexadecimal string
 
   ``fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210``
 
+.. _canonicalized_request_example:
+
 2.1.7. Concatenating the canonicalized parts
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
