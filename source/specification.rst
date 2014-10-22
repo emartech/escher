@@ -251,6 +251,8 @@ will be an output:
 
   ``0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef``
 
+.. _signing_string_example:
+
 2.2.5. Concatenating the Signing String
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -262,6 +264,8 @@ Concatenate the outputs of steps 2.2. with ``LF`` characters. Example output:
    20141022T120000Z
    20141022/eu-vienna/yourproductname/escher_request
    0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+
+.. _signing_key_algorithm:
 
 2.2.6. The Signing Key
 ^^^^^^^^^^^^^^^^^^^^^^
