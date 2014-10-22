@@ -17,7 +17,7 @@ Your help will be *much welcomed*, we are especially interested in **code review
 **new library implementations in different languages**, **writing the documentation** and **promotion**.
 
 Feel free to join and discuss at Escher's `general mailing list <https://groups.google.com/forum/#!forum/escherauth>`_,
-and follow our Twitter user `@escherauth <https://twitter.com/escherauth>`.
+and follow our Twitter user `@escherauth <https://twitter.com/escherauth>`_.
 
 Contents
 --------
