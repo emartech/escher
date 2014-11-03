@@ -15,7 +15,7 @@ credential scope
 
 The most important service constant is the *credential scope*, this is the
 only required parameter when you are using the library. It is a
-slash separated, hierarchical id, containing the service's scope. Amazon
+slash separated, hierarchical ID, containing the service's scope. Amazon
 uses it to identify the data center, the service and the protocol. An
 Amazon example is "us-east-1/iam/aws4_request". You should define a scope
 like "eu-vienna/yourproductname/escher_request".
@@ -35,7 +35,7 @@ algo_prefix, vendor_key, auth_header_name and date_header_name
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 These options are implemented to keep the compability with the Amazon AWS4
-protocol, it is not advised to change them.
+protocol, it is not recommended to change them.
 
 hash_algo
 ^^^^^^^^^
