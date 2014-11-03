@@ -9,11 +9,11 @@ Abstract
 The Escher HTTP request signing framework enables a third-party client
 to securely access an HTTP service. It defines the creation of an
 authorization header, and includes message integrity checking, and
-can prevent replaying messages. Designed to be used with the HTTPS
+can prevent replaying messages. It is designed to be used with the HTTPS
 protocol.
 
 The framework is based on `Amazon's AWS4 authentication <http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html>`_,
-and compatible with Amazon services using their AWS4 protocol.
+and is compatible with Amazon services using their AWS4 protocol.
 
 Status of This Memo
 -------------------
@@ -39,7 +39,7 @@ defines Basic and Digest Access Authentication. They're widely used,
 but Basic Access Authentication doesn't encrypt the secret and doesn't
 add integrity checks to the requests. Digest Access Authentication
 sends the secret encrypted, but the algorithm with creating a checksum
-with a nonce and using md5 should not considered highly secure these
+with a nonce and using md5 should not be considered highly secure these
 days, and as with Basic Access Authentication, there's no way to check
 the integrity of the message.
 
@@ -56,12 +56,12 @@ checking, or prevent repeating messages. OAuth 2.0 is a stateful
 protocol which needs a database to store the tokens for client sessions.
 
 Amazon and other service providers created protocols addressing these
-issues, however there are no public standard with open source
+issues, however there is no public standard with open source
 implementations available from them. As Escher is based on a publicly
 documented, widely, in-the-wild used protocol, the specification
 does not include novelty techniques.
 
-2. Signing an HTTP request
+2. Signing an HTTP Request
 --------------------------
 
 Escher defines a stateless signature generation mechanism. The signature
@@ -75,14 +75,14 @@ original request.
 Escher supports two hash algorithms: `SHA256 and SHA512 <http://csrc.nist.gov/groups/STM/cavp/documents/shs/sha256-384-512.pdf>`_
 designed by the NSA (U.S. National Security Agency).
 
-2.1. Canonicalizing the request
+2.1. Canonicalizing the Request
 -------------------------------
 
 In order to calculate a checksum from the key HTTP request parts, the
 HTTP request method, the request URI, the query parts, the headers, and
 the request body have to be canonicalized. The output of the
 canonicalization step will be a string including the request parts
-separated by ``LF`` (Line feed, "\n") characters.
+separated by ``LF`` (line feed, "\n") characters.
 The string will be used to calculate a checksum for the request.
 
 2.1.1. The HTTP method
@@ -103,15 +103,15 @@ character, and does not include the query part (and the question mark).
 Escher follows the rules defined by `RFC3986 (Uniform Resource Identifier) <http://tools.ietf.org/html/rfc3986>`_
 to normalize the path. Basically it means:
 
- * Convert relative paths to absolute, remove redundant path components
- * URI-encode each path components
+ * Convert relative paths to absolute, remove redundant path components.
+ * URI-encode each path components:
 
    * the "reserved characters" defined by `RFC3986 (Uniform Resource Identifier) <http://tools.ietf.org/html/rfc3986>`_ have to be kept as they are (no encoding applied)
    * all other characters have to be percent encoded, including ``SPACE`` (to ``%20``, instead of ``+``)
    * non-ASCII, UTF-8 characters should be percent encoded to 2 or more pieces (``á`` to ``%C3%A1``)
    * percent encoded hexadecimal numbers have to be upper cased (eg: ``a%c2%b1b`` to ``a%C2%B1b``)
 
- * Normalize empty paths to ``/``
+ * Normalize empty paths to ``/``.
 
 For example:
 
@@ -130,10 +130,10 @@ canonicalization of the query string, but here's the complete list of the rules 
    * non-ASCII, UTF-8 characters should be percent encoded to 2 or more pieces (``á`` to ``%C3%A1``)
    * percent encoded hexadecimal numbers have to be upper cased (eg: ``a%c2%b1b`` to ``a%C2%B1b``)
 
- * Normalize empty query strings to empty string
- * Sort query parameters by the encoded parameter names (ASCII order)
+ * Normalize empty query strings to empty string.
+ * Sort query parameters by the encoded parameter names (ASCII order).
  * Do not shorten parameter values if their parameter name is the same (``key=B&key=A`` is a valid output),
-   the order of parameters in a URL may be significant (this is not defined by the HTTP standard)
+   the order of parameters in a URL may be significant (this is not defined by the HTTP standard).
  * Separate parameter names and values by ``=`` signs, include ``=`` for empty values, too
  * Separate parameters by ``&``
 
@@ -146,11 +146,11 @@ For example:
 
 To canonicalize the headers, the following rules have to be followed:
 
- * Lower case the header names
- * Separate header names and values by a ``:``, with no spaces
- * Sort header names to alphabetical order (ASCII)
- * Group headers with the same names into one header, and separate their values by commas, without sorting
- * Trim header values, keep all the spaces between quote characters (``"``)
+ * Lower case the header names.
+ * Separate header names and values by a ``:``, with no spaces.
+ * Sort header names to alphabetical order (ASCII).
+ * Group headers with the same names into a header, and separate their values by commas, without sorting.
+ * Trim header values, keep all the spaces between quote characters (``"``).
 
 For example:
 
@@ -187,11 +187,11 @@ The checksum of the body has to be presented as a lower cased hexadecimal string
 
 .. _canonicalized_request_example:
 
-2.1.7. Concatenating the canonicalized parts
+2.1.7. Concatenating the Canonicalized Parts
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 All the steps above produce a row of data, except the headers canonicalization, as it creates one row per headers.
-These have to be concatenated with ``LF`` (Line feed, "\n") characters into a string. An example:
+These have to be concatenated with ``LF`` (line feed, "\n") characters into a string. An example:
 
 .. code-block:: string
 
@@ -207,7 +207,7 @@ These have to be concatenated with ``LF`` (Line feed, "\n") characters into a st
    date;host
    fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210
 
-2.2. Creating the signature
+2.2. Creating the Signature
 ---------------------------
 
 The next step is creating another string which will be directly used to calculate the signature.
@@ -215,8 +215,8 @@ The next step is creating another string which will be directly used to calculat
 2.2.1. Algorithm ID
 ^^^^^^^^^^^^^^^^^^^
 
-The **algorithm ID** is an identifier coming from the **algo_prefix** (default value is ``ESR``) and the algorithm
-used to calculate checksums during the signing process. The strings **algo_prefix**, "HMAC", and the algorithm
+The **algorithm ID** comes from the **algo_prefix** (default value is ``ESR``) and the algorithm
+used to calculate checksums during the signing process. The string **algo_prefix**, "HMAC", and the algorithm
 name should be concatenated with dashes, like this:
 
   ``ESR-HMAC-SHA256``
@@ -235,7 +235,7 @@ This date has to be added later, too, as a date header (default header name is `
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Next information is the **short date**, and the **credential scope** concatenated with a ``/`` character.
-The **short date** is the request date's date part ISO 8601 basic formatted representation, the
+The **short date** is the request date's date part, an ISO 8601 basic formatted representation, the
 **credential scope** is defined by the service. Example:
 
   ``20141022/eu-vienna/yourproductname/escher_request``
@@ -246,7 +246,7 @@ This will be added later, too, as part of the authorization header (default head
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Take the output of step *2.1.7.*, and create a checksum from the canonicalized checksum string.
-This checksum has to be presented as a lower cased hexadecimal string, too. Something like this
+This checksum has to be represented as a lower cased hexadecimal string, too. Something like this
 will be an output:
 
   ``0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef``
@@ -271,7 +271,7 @@ Concatenate the outputs of steps 2.2. with ``LF`` characters. Example output:
 ^^^^^^^^^^^^^^^^^^^^^^
 
 The signing key is based on the **algo_prefix**, the **client secret**, the parts of the **credential scope**,
-and the request date.
+and the **request date**.
 
 Take the **algo_prefix**, concatenate the **client secret** to it. First apply the HMAC algorithm to
 the **request date**, then apply the actual value on each of the **credential scope** parts
@@ -292,7 +292,7 @@ Pseudo code:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The signature is created from the output of steps *2.2.5.* (Signing String) and *2.2.6.* (Signing Key). With
-the selected algorithm, create a checksum. It has to be presented as a lower cased hexadecimal string.
+the selected algorithm, create a checksum. It has to be represented as a lower cased hexadecimal string.
 Something like this will be an output:
 
   ``abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd``
@@ -303,9 +303,9 @@ Something like this will be an output:
 ----------------------------------------
 
 The final step of the Escher signing process is adding the Signature to the request. Escher adds a new header
-to the request, by default the header name is ``X-Escher-Auth``. The header value will include the Algorithm ID
-(see *2.2.1.*), the *client key*, the **short date** and the **credential scope** (see *2.2.3.*), the
-**signed headers** string (see *2.1.5.*) and finally the signature (see *2.2.7.*).
+to the request, by default, the header name is ``X-Escher-Auth``. The header value will include the **algorithm ID**
+(see *2.2.1.*), the **client key**, the **short date** and the **credential scope** (see *2.2.3.*), the
+**signed headers** string (see *2.1.5.*) and finally the **signature** (see *2.2.7.*).
 
 The values of this inputs have to be concatenated like this:
 
@@ -314,18 +314,18 @@ The values of this inputs have to be concatenated like this:
   ESR-HMAC-SHA256 Credential=CLIENT_KEY/20141022/eu-vienna/yourproductname/escher_request,
   SignedHeaders=date;host, Signature=abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd
 
-3. Presigning an URL
---------------------
+3. Presigning a URL
+-------------------
 
-The URL presigning process is very similar to the request signing procedure. But for an URL, there are
+The URL presigning process is very similar to the request signing procedure. But for a URL, there are
 no headers, no request body, so the calculation of the Signature is different. Also, the Signature cannot
-be added to the headers, but included as query parameters.
+be added to the headers, but is included as query parameters.
 
 A significant difference is that the presigning allows defining an expiration time. By default, it is
 86400 secs, 24 hours. The current time and the expiration time will be included in the URL, and the
-server have to check if the URL is expired.
+server has to check if the URL is expired.
 
-3.1. Canonicalizing the URL to presign
+3.1. Canonicalizing the URL to Presign
 --------------------------------------
 
 The canonicalization for URL presigning is the same process as for HTTP requests,
@@ -338,17 +338,17 @@ The HTTP method for presigned URLs is fixed to:
 
   ``GET``
 
-2.1.2. The Path
+3.1.2. The Path
 ^^^^^^^^^^^^^^^
 
-The path is coming from the URL, and the same canonicalization process have to be
-applied to them, as for HTTP requests.
+The path is coming from the URL, and the same canonicalization process has to be
+applied to them as for HTTP requests.
 
 For example:
 
   ``/path/resource/``
 
-2.1.3. The Query String
+3.1.3. The Query String
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 The query is coming from the URL, but the algorithm, credentials, date, expiration time,
@@ -356,11 +356,10 @@ and signed headers have to be added to the query parts.
 
   ``foo=bar&abc=efg``
 
-2.1.4. The Headers
+3.1.4. The Headers
 ^^^^^^^^^^^^^^^^^^
 
-An URL has no headers, Escher creates the Host header based on the URL's domain information, and
-maintains adds it to the canonicalized request.
+A URL has no headers, Escher creates the Host header based on the URL's domain information, and adds it to the canonicalized request.
 
 For example:
 
@@ -368,14 +367,14 @@ For example:
 
    host:example.com
 
-2.1.5. Signed Headers
+3.1.5. Signed Headers
 ^^^^^^^^^^^^^^^^^^^^^
 
 It will be `host`, as that's the only header included. Example:
 
   ``host``
 
-4. Validating requests
+4. Validating Requests
 ----------------------
 
 **TBD**
