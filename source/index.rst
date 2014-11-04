@@ -1,10 +1,10 @@
-Escher - stateless HTTP request signing
+Escher - Stateless HTTP Request Signing
 =======================================
 
 Escher is a **stateless HTTP request signing spec** to allow secure authorization and request validation. It
 adds an additional security layer and an authentication layer over HTTPS. The algorithm is based on
 `Amazon's AWS4 authentication <http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html>`_.
-The goal was implementing a protocol where request's integrity is validated, and impossible to modify without
+The goal was implementing a protocol where request's integrity is validated. It is impossible to be modified without
 knowing the secret.
 
 Escher is great for creating **secure REST API servers**, both the client side **request signing** process, and
@@ -22,7 +22,7 @@ and follow our Twitter user `@escherauth <https://twitter.com/escherauth>`_.
 Announcement
 ------------
 
-You can check out our Escher announcement was on `NordicAPIs <http://nordicapis.com/events/stockholm-2014-platform-summit/>`_:
+You can check out our Escher announcement on `NordicAPIs <http://nordicapis.com/events/stockholm-2014-platform-summit/>`_:
 
 .. raw:: html
 
