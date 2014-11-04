@@ -1,14 +1,14 @@
 Checklist for Auditing
 ======================
 
-Are you ready with your implementation, and would like to double check if it works
+Are you ready with your implementation, and would you like to double check if it works
 well and secure? First, you should run the test package, but we are also providing
 you this checklist you can go through and audit your code.
 
 Request Signing
 ---------------
 
-**Request canonization**
+**Request Canonicalization**
 
 It has to canonicalize the request properly.
 
@@ -68,7 +68,7 @@ It has to canonicalize the request properly.
     * Must use the correct credential format
     * Must use the correct signed headers format
     * Must use the correct signature format
-    * Must have the following structure
+    * Must have the following structure:
        * Must include the algorithm description
        * Must have a space after algorithm description
        * Must state credential scope
@@ -82,7 +82,7 @@ It has to canonicalize the request properly.
  	* Regarding credential scope
  	* Regarding full credential scope
 
-Client must provide default constants and hide request canonization and signature.
+Client must provide default constants and hide request canonicalization and signature.
 
 Server must check signatures correctly.
 
