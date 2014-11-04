@@ -1,19 +1,19 @@
 Overview
 ========
 
-This page just a short overview about this process, please read the
-:doc:`specification' for details.
+This page is just a short overview about this process, please read the
+:doc:`specification` for details.
 
-Signing a request
+Signing a Request
 -----------------
 
 Signing an HTTP request is only a few steps.
 
-1. Canonicalizing a request
+1. Canonicalizing a Request
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Maybe this is the most difficult step, creating the canonicalized version
-of the HTTP requests according to the specification needs a lot of code.
+of the HTTP requests, according to the specification, needs a lot of code.
 
 Let's start with this HTTP request:
 
@@ -29,9 +29,9 @@ Let's start with this HTTP request:
 
    message=Hello%20World
 
-Escher creates a string from it, that represents the request in a canonicalized form. The
+Escher creates a string from it that represents the request in a canonicalized form. The
 string is based on the different parts of the request, separated by line breaks (``\n``).
-Each parts are canonicalized, for example the header names are lower cased and ordered,
+Each part is canonicalized, for example, the header names are lower cased and ordered,
 the query parameters are ordered, and so.
 
 Our example request's will look something like this after canonicalization:
@@ -50,11 +50,11 @@ Our example request's will look something like this after canonicalization:
    date;host
    fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210
 
-2. Calculating the signature
+2. Calculating the Signature
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The next step includes creating a HMAC checksum from the canonicalized request string,
-and creating an other new line separated string, now including the algorithm id,
+The next step includes creating an HMAC checksum from the canonicalized request string,
+and creating another new line separated string, now including the algorithm ID,
 the current time, the credential scope and the canonicalized request's checksum.
 
 It will look something like this:
@@ -81,14 +81,14 @@ with each part, on the algo_prefix and API secret:
    }
    return signing_key
 
-At the end, with the string above, and this signing_key, it calculates a checksum
+At the end, with the string above and this signing_key, it calculates a checksum
 with HMAC.
 
-3. Adding the signature to the HTTP headers
+3. Adding the Signature to the HTTP Headers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The final step is adding the signature to the request, as a new header. If the request
-has no host, or has no date header, they have to be added, too.
+has no host, or has no date header, these have to be added.
 
 At the end of the process, the HTTP request will be like this:
 
