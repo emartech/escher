@@ -10,7 +10,7 @@ owner. If you are a service owner, you have to define them for your users.
    In practice, you should only define the credential scope, and keep the
    defaults of the other options.
 
-credential scope
+Credential Scope
 ^^^^^^^^^^^^^^^^
 
 The most important service constant is the *credential scope*, this is the
@@ -20,7 +20,7 @@ uses it to identify the data center, the service and the protocol. An
 Amazon example is "us-east-1/iam/aws4_request". You should define a scope
 like "eu-vienna/yourproductname/escher_request".
 
-clock_skew
+Clock Skew
 ^^^^^^^^^^
 
 This option defines the maximum allowed window of the difference between
@@ -31,19 +31,19 @@ differences could cause the invalidity of the signature.
 The default is ±900 secs (15 mins), it generally works well. You might
 want to allow smaller difference only.
 
-algo_prefix, vendor_key, auth_header_name and date_header_name
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Algo Prefix, Vendor Key, Authentication Header Name and Date Header Name
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 These options are implemented to keep the compability with the Amazon AWS4
 protocol, it is not recommended to change them.
 
-hash_algo
+Hash Algo
 ^^^^^^^^^
 
 Defines the hash algorithm used to calculate the signature. There are two
 supported values: *SHA256* and *SHA512*.
 
-current_time
+Current Time
 ^^^^^^^^^^^^
 
 This parameter is only for testing purposes, as tests need to have an injected

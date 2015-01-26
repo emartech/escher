@@ -1,7 +1,7 @@
 EscherRuby
 ==========
 
- * Source code: `EscherRuby <https://github.com/emartech/escher-ruby>`_
+ * source code: `EscherRuby <https://github.com/emartech/escher-ruby>`_
  * gem: `escher <https://rubygems.org/gems/escher>`_
 
 Installation
@@ -25,10 +25,10 @@ Usage
 From Ruby 1.9, your installed gems are autoloaded automatically, you can
 start using Escher after installation.
 
-The library has 3 interfaces you can call. You can sign an HTTP request, you can presign an URL
+The library has 3 interfaces you can call. You can sign an HTTP request, you can presign a URL
 and you can validate a signed HTTP request or presigned URL (with the same method).
 
-Signing a request
+Signing a Request
 ^^^^^^^^^^^^^^^^^
 
 Escher works by calculating a cryptographic signature of your request, and adding it (and other authentication
