@@ -17,8 +17,8 @@ The most important service constant is the *credential scope*, this is the
 only required parameter when you are using the library. It is a
 slash separated, hierarchical ID, containing the service's scope. Amazon
 uses it to identify the data center, the service and the protocol. An
-Amazon example is "us-east-1/iam/aws4_request". You should define a scope
-like "eu-vienna/yourproductname/escher_request".
+Amazon example is ``us-east-1/iam/aws4_request``. You should define a scope
+like ``eu-vienna/yourproductname/escher_request``.
 
 Clock Skew
 ^^^^^^^^^^
