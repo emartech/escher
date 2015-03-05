@@ -70,7 +70,7 @@ You can however generate a presigned URL, where the authentication information i
    require 'escher'
    require 'net/http'
 
-   escher = Escher.new('example/credential/scope', {})
+   escher = Escher::Auth.new('example/credential/scope', {})
    client = {api_key_id: 'YOUR ACCESS KEY ID', api_secret: 'YOUR SECRET'}
 
    presigned_url = escher.generate_signed_url("http://example.com", client)
