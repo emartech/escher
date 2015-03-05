@@ -41,16 +41,22 @@ Let's say you want to send a signed POST request to http://example.com/ using th
    require 'escher'
    require 'net/http'
 
-   escher = Escher.new('example/credential/scope', {})
-   client = {api_key_id: 'YOUR ACCESS KEY ID', api_secret: 'YOUR SECRET'}
+   escher = Escher::Auth.new('example/credential/scope', {})
 
-   url = URI.parse('http://example.com/')
-   req = Net::HTTP::Post.new(url.to_s)
-   req.body = '{ "this_is": "a_request_body" }'
-   req = escher.sign!(req, client)
-   response = Net::HTTP.start(url.host, url.port) {|http|
-     http.request(req)
+   request_data = {
+      method: 'GET',
+      uri: '/api/examples',
+      headers: [['Content-Type', 'application/json'], ['host', 'example.com']],
    }
+
+   escher.sign!(request_data, { api_key_id: 'YOUR ACCESS KEY ID', api_secret: 'YOUR SECRET' })
+
+   request = Net::HTTP::Get.new('/api/examples')
+   request_data[:headers].each do |header|
+      request[header.first] = header.last
+   end
+
+   response = Net::HTTP.new('example.com').request(request)
 
 Presigning a URL
 ^^^^^^^^^^^^^^^^
