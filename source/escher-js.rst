@@ -10,7 +10,7 @@ Installation
 We are supporting NPM as a package manager. If you have NodeJS installed
 NPM will be very likely installed as well. Please check out the instructions
 about `NPM installation <https://github.com/npm/npm#fancy-install-unix>`_,
-it not.
+if not.
 
 If NPM is installed, you can install the *escher-auth* npm package by:
 
