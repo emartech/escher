@@ -14,8 +14,8 @@ To load the library, add the Composer autoloader to your code:
 
 The library has one interface you can call. You can validate a signed HTTP request.
 
-Authenticate the HTTP request
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Validating a request
+^^^^^^^^^^^^^^^^^^^^
 The authenticate function examine the HTTP request and return with an error in the following cases:
 
  * There is a missing header in the request.
@@ -29,13 +29,7 @@ The authenticate function examine the HTTP request and return with an error in t
  * Date header is not signed.
  * The signatures do not match.
 
-If there is no error in the request the authentication process returns with the given client key.
-
-Validating a request
-^^^^^^^^^^^^^^^^^^^^
-
-You can validate a request signed by the method described above. For that you will need a database of the access keys and secrets of your clients.
-Escher accepts a function as a key database, where you can pass the client key, and it returns the client secret.
+If there is no error in the request the authentication process returns with the given client key. For that you will need a database of the access keys and secrets of your clients. Escher accepts a function as a key database, where you can pass the client key, and it returns the client secret.
 
 .. code-block:: lua
 
@@ -84,7 +78,7 @@ Possible error codes
    * - Only SHA256 and SHA512 hash algorithms are allowed.
      - The used algorithm for the presigned signature is not accepted.
      - Check if the request has the right algorithm, and use one of the accepted algorithms.
-   * - The credentials date does not match with the request date.
+   * - The credential date does not match with the request date.
      - The short date in the request's date header is not equal with the Authorization header's.
      - Check the authorization header's credential parameter. The date in this parameter should be the same day as the request's date.
    * - The request date is not within the accepted time range.
