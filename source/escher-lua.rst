@@ -3,6 +3,36 @@ EscherLua
 
  * Source code: `EscherLua <https://github.com/emartech/escher-lua>`_
 
+Installation
+-----
+
+To install Escher, follow the following steps:
+
+.. code-block:: bash
+
+   sudo apt-get install luajit
+   sudo apt-get install luarocks
+   sudo luarocks install luafilesystem
+   sudo luarocks install busted
+   sudo luarocks install rapidjson
+   sudo luarocks install luacrypto
+   sudo luarocks install date
+
+These steps install every module needs for Escher.
+
+For mac users the steps:
+
+.. code-block:: bash
+   
+   brew install lua
+   brew install cmake
+   brew install openssl
+   luarocks-5.2 install luafilesystem
+   luarocks-5.2 install busted
+   luarocks-5.2 install rapidjson
+   luarocks-5.2 install date
+   luarocks-5.2 install luacrypto OPENSSL_INCDIR=/usr/local/Cellar/openssl/1.0.2c/include
+
 Usage
 -----
 
