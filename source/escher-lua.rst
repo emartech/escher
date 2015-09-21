@@ -12,7 +12,18 @@ To load the library, add the Composer autoloader to your code:
 
    local Escher = require("lib.escher")
 
-The library has one interface you can call. You can validate a signed HTTP request.
+The library has two interfaces you can call. You can validate a signed HTTP request or you can presign a URL.
+
+Presigning a URL
+^^^^^^^^^^^^^^^^
+In some cases you may want to send authenticated requests from a context where you cannot modify the request headers, e.g. when embedding an API generated iframe. You can however generate a presigned URL, where the authentication information is added to the query string.
+
+.. code-block:: lua
+
+   local escher = Escher:new(getConfigFromTestsuite(test.config))
+   local client = {test.config.accessKeyId, test.config.apiSecret}
+   
+   test.request.url = escher:generatePreSignedUrl(test.request.url, client, test.request.expires)
 
 Validating a request
 ^^^^^^^^^^^^^^^^^^^^
