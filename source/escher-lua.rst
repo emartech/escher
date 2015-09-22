@@ -18,7 +18,7 @@ To install Escher, follow these steps:
    sudo luarocks install luacrypto
    sudo luarocks install date
 
- The steps above install every module needs for Escher.
+The steps above install every module needs for Escher.
 
 For mac users the steps:
 
