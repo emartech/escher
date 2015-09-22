@@ -18,7 +18,6 @@ To install Escher, follow these steps:
    sudo luarocks install luacrypto
    sudo luarocks install date
 
-The steps above install every module needs for Escher.
 
 For mac users the steps:
 
@@ -32,6 +31,8 @@ For mac users the steps:
    luarocks-5.2 install rapidjson
    luarocks-5.2 install date
    luarocks-5.2 install luacrypto OPENSSL_INCDIR=/usr/local/Cellar/openssl/1.0.2c/include
+
+The steps above install every module needs for Escher.
 
 Usage
 -----
