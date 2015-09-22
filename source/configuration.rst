@@ -48,3 +48,100 @@ Current Time
 
 This parameter is only for testing purposes, as tests need to have an injected
 time for repeatability reasons.
+
+Possible error messages
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Message:
+  The date header is missing
+
+Solution:
+  The "dateHeaderName" configuration should be the same on server and client.
+  
+----
+
+Message:
+  The authorization header is missing
+
+Solution:
+  The "authHeaderName" configuration should be the same on server and client.
+  
+----
+
+Message:
+  The host header is missing
+
+Solution:
+  The client's Escher implementation is incomplete or the host header lost between the server and the client.
+  
+----
+
+Message:
+  Could not parse auth header
+
+Solution:
+  The client's Escher implementation is incomplete. `Specification for authorization header <http://escherauth.io/specification.html#adding-the-signature-to-the-request>`_.
+  
+----
+
+Message:
+  The host header is not signed
+
+Solution:
+  The client's Escher implementation is incomplete.
+  
+----
+
+Message:
+  The date header is not signed
+
+Solution:
+  The client's Escher implementation is incomplete.
+  
+----
+
+Message:
+  The credential scope is invalid
+
+Solution:
+  The "credentialScope" configuration should be the same on server and client.
+  
+----
+
+Message:
+  Only SHA256 and SHA512 hash algorithms are allowed
+
+Solution:
+  The client's Escher implementation is incomplete. Escher only supports these hash algorithms.
+  
+----
+
+Message:
+  The credential date does not match with the request date
+
+Solution:
+  The client's Escher implementation is incomplete. The authorization header's short date is not equal with the request date header.
+  
+----
+
+Message:
+  The request date is not within the accepted time range
+
+Solution:
+  The server's or client's time is out of sync. Use an NTP (Network Time Protocol) client or a similar solution to set the accurate time.
+  
+----
+
+Message:
+  Invalid Escher key
+
+Solution:
+  The client is using an Escher key missing on the server.
+  
+----
+
+Message:
+  The signatures do not match
+
+Solution:
+  The most likely problem is either the Escher secret is wrong or the signed and sent requests are different.
