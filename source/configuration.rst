@@ -117,7 +117,7 @@ Solution:
 ----
 
 Message:
-  The credential date does not match with the request date
+  The authorization header's shortDate does not match with the request date
 
 Solution:
   The client's Escher implementation is incomplete. The authorization header's short date is not equal with the request date header.
