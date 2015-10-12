@@ -4,7 +4,7 @@ Escher is a **stateless HTTP request signing library** to allow secure authoriza
 
 Escher is great for creating secure REST API servers, both the **request signing**, and **validation** are implemented. The protocol also provides a solution for **presigning URLs** with expiration.
 
-The status is **work in progress**.
+The status is **work in progress**, however we have implementations in 7 programming languages.
 
 Your help will be *much welcomed*, we are especially interested in **code reviews**, **library implementations in different languages**, **writing the documentation** and **promotion**.
 
