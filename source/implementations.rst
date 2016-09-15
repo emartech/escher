@@ -15,3 +15,4 @@ Official implementations
    escher-ruby
    escher-js
    escher-php
+   escher-java
