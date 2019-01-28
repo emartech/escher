@@ -191,7 +191,7 @@ The checksum of the body has to be presented as a lower cased hexadecimal string
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 All the steps above produce a row of data, except the headers canonicalization, as it creates one row per headers.
-These have to be concatenated with ``LF`` (line feed, "\n") characters into a string. An example:
+These have to be concatenated with ``LF`` (line feed, "\n") characters into a string. After the canonicalized headers, a ``LF`` ("\n") character must be inserted. An example:
 
 .. code-block:: string
 
@@ -204,6 +204,7 @@ These have to be concatenated with ``LF`` (line feed, "\n") characters into a st
    content-type:application/x-www-form-urlencoded
    content-length:21
    host:example.com
+
    date;host
    fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210
 
