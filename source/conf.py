@@ -49,7 +49,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Escher'
-copyright = u'2014, Emarsys'
+copyright = u'2014-2019, Emarsys'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -249,7 +249,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'Escher', u'Escher Documentation',
-   u'Emarsys', 'Escher', 'One line description of project.',
+   u'Emarsys', 'Escher', 'Stateless HTTP Request Signing',
    'Miscellaneous'),
 ]
 
@@ -272,7 +272,7 @@ texinfo_documents = [
 epub_title = u'Escher'
 epub_author = u'Emarsys'
 epub_publisher = u'Emarsys'
-epub_copyright = u'2014, Emarsys'
+epub_copyright = u'2014-2019, Emarsys'
 
 # The basename for the epub file. It defaults to the project name.
 #epub_basename = u'Escher'
