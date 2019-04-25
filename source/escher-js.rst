@@ -21,12 +21,6 @@ If NPM is installed, you can install the *escher-auth* npm package by:
 Usage
 -----
 
-To load the library, add the Composer autoloader to your code:
-
-.. code-block:: javascript
-
-   var Escher = require('escher-auth');
-
 The library has 3 interfaces you can call. You can sign an HTTP request, you can presign a URL
 and you can validate a signed HTTP request or presigned URL (with the same method).
 
@@ -40,44 +34,57 @@ Let's say you want to send a signed POST request to http://example.com/:
 
 .. code-block:: javascript
 
-   var escher = new Escher({
-     credentialScope: 'example/credential/scope',
-     accessKeyId: 'EscherExample',
-     apiSecret: 'TheBeginningOfABeautifulFriendship'
-   });
+    const http = require('http');
+    const Escher = require('escher-auth');
 
-   var options = {
-     host: 'example.com',
-     port: 80,
-     method: 'GET',
-     url: '/validate_request',
-     headers: [
-       ['X-Escher-Date', (new Date).toUTCString()]
-     ]
-   }
+    const escher = new Escher({
+      credentialScope: 'example/credential/scope',
+      accessKeyId: 'EscherExample',
+      apiSecret: 'TheBeginningOfABeautifulFriendship'
+    });
 
-   options = escher.signRequest(options, '');
+    const body = '{ "message": "Hello World!" }';
 
-   http.get(options, function(resp){
-     resp.on('data', function(chunk){
-       console.log(chunk.toString());
-     });
-   }).on("error", function(e){
-     console.log("Got error: " + e.message);
-   });
+    const options = {
+      host: 'example.com',
+      port: 80,
+      method: 'POST',
+      url: '/validate_request',
+      headers: [
+        ['X-Escher-Date', (new Date).toUTCString()]
+      ]
+    };
+
+    const signedRequest = escher.signRequest(options, body);
+
+    http
+      .post(signedRequest, resp => {
+        resp.on('data', chunk => {
+          console.log(chunk.toString()));
+        });
+      })
+      .on("error", error => {
+        console.log("Got error: " + error.message));
+      });
 
 Presigning a URL
 ^^^^^^^^^^^^^^^^
 
 .. code-block:: javascript
 
-   var escher = new Escher({
-     credentialScope: 'example/credential/scope',
-     accessKeyId: 'EscherExample',
-     apiSecret: 'TheBeginningOfABeautifulFriendship'
-   });
+    const Escher = require('escher-auth');
 
-   var presignedUrl = escher.preSignUrl('http://example.com/', 86400);
+    const escher = new Escher({
+      credentialScope: 'example/credential/scope',
+      accessKeyId: 'EscherExample',
+      apiSecret: 'TheBeginningOfABeautifulFriendship'
+    });
+
+    const url = 'http://example.com/';
+
+    const expiration = 86400;
+
+    const presignedUrl = escher.preSignUrl(url, expiration);
 
 Validating a request
 ^^^^^^^^^^^^^^^^^^^^
@@ -87,12 +94,12 @@ Escher accepts a function as a key database, where you can pass the client key, 
 
 .. code-block:: javascript
 
-   var escher = new Escher({
-     credentialScope: 'example/credential/scope'
-   });
+    const Escher = require('escher-auth');
 
-   var keyDB = function(clientKey) {
-     return "TheBeginningOfABeautifulFriendship";
-   }
+    const escher = new Escher({
+      credentialScope: 'example/credential/scope'
+    });
 
-   escher.authenticate(request, keyDB);
+    const keyDB = clientKey => 'TheBeginningOfABeautifulFriendship';
+
+    escher.authenticate(request, keyDB);
