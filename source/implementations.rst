@@ -16,4 +16,4 @@ Official implementations
    escher-js
    escher-php
    escher-java
-   escherauth-go
+   escher-python
