@@ -1,12 +1,13 @@
 EscherPython
 ============
 
- * source code: `EscherPython <https://github.com/emartech/escher-python>`_
- * gem: `escher <https://pypi.org/project/escherauth-go/>`_
+ * source code: `EscherPython <https://github.com/emartech/escherauth-go-example>`_
+ * package: `escher <https://pypi.org/project/escherauth-go/>`_
 
 Installation
 ------------
-Use Python 3.6 or above. Create a local envirioment. Use pip to install escher lib of python. 
+Use Python 3.6 or above. Create a local envirioment. Use pip to install escher lib of python.
+This is a wrapper for the go implementation. This packages requires glibc which makes it unusable with musl libc (e.g.: in alpine linux)
 
 .. code-block:: bash
 
