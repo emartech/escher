@@ -352,10 +352,28 @@ For example:
 3.1.3. The Query String
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-The query is coming from the URL, but the algorithm, credentials, date, expiration time,
-and signed headers have to be added to the query parts.
+The query string comes from the URL to be presigned. For example:
 
   ``foo=bar&abc=efg``
+
+Additional signing parameters must be added to the query string before
+canonicalization. These parameters are the **algorithm ID** (see *2.2.1.*), the **long date** (see *2.2.2*),
+the **client key**, the **short date** and the **credential scope** (see *2.2.3.*),
+the **expiration** (see *3.2.1*), and the **signed headers** string (see *2.1.5.*).
+
+Pseudo code:
+
+.. code-block:: ruby
+
+   query_string = 'foo=bar&abc=efg'
+   query_string += '&X-Escher-Algorithm=' + algorithm_id
+   query_string += '&X-Escher-Credential=' + credential_scope
+   query_string += '&X-Escher-Date=' + long_date
+   query_string += '&X-Escher-Expires=' + expiration_seconds
+   query_string += '&X-Escher-SignedHeaders=' + signed_headers
+
+After appending the signing parameters to the query string, it must be canonicalized
+as described in *2.1.3*.
 
 3.1.4. The Headers
 ^^^^^^^^^^^^^^^^^^
@@ -374,6 +392,42 @@ For example:
 It will be `host`, as that's the only header included. Example:
 
   ``host``
+
+3.2. Creating the Signature
+---------------------------
+
+Creating the signature for a presigned URL is similar to the process for a signed request. In this section,
+we will cover the differences only.
+
+3.2.1. Expiration
+^^^^^^^^^^^^^^^^^
+
+A presigned URL includes an **Expires** parameter to indicate how long the signature is valid in seconds.
+You should set this to the shortest tolerable duration while being mindful of possible time differences
+between two systems.
+
+3.2.2. Create the Signature
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Create the signature as in *2.2.7* after canonicalizing the URL as described in *3.1*.
+
+3.3. Adding the Signature to the Query String
+---------------------------------------------
+
+The final step of the Escher presigning process is adding the Signature to the query string that was
+prepared in *3.1.3*.
+
+Pseudo code:
+
+.. code-block:: ruby
+
+   query_string += '&X-Escher-Signature=' + signature
+
+An example of the resulting URL will look like this:
+
+.. code-block:: string
+
+  https://example.com/path/resource/?foo=bar&abc=efg&X-Escher-Algorithm=ESR-HMAC-SHA256&X-Escher-Credential=20141022%2Feu-vienna%2Fyourproductname%2Fescher_request&X-Escher-Date=20141022T120000Z&X-Escher-Expires=900&X-Escher-SignedHeaders=host&X-Escher-Signature=abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd
 
 4. Validating Requests
 ----------------------
